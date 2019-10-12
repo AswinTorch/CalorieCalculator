@@ -4,21 +4,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container">
+      <h1>Calorie Calculator</h1>
+      <h4>A web app to calculate your calorie needs based on age, height, weight, and exercise.</h4>
+      <button className="btn btn-primary">Enter</button>
     </div>
   );
 }
