@@ -107,16 +107,13 @@ const CalculatorForm = props => {
             onChange={activityLevelHandler}
           >
             <option value={1}>Basal Metabolic Rate</option>
-            <option value={1.2}>Little to no exercise</option>
-            <option value={3}>Exercise 1-3 times a week</option>
-            <option value={4}>Exercise 4-5 times a week</option>
-            <option value={5}>
-              Daily exercise or intense exercise 3-4 times a week
+            <option value={1.2}>Sedentary</option>
+            <option value={1.37}>Light Exercise</option>
+            <option value={1.55}>Moderate Exercise</option>
+            <option value={1.72}>
+              Heavy Exercise
             </option>
-            <option value={6}>Intense exercise 5-7 times a week</option>
-            <option value={7}>
-              Very intense exercise daily or physical job
-            </option>
+            <option value={1.9}>Athlete Level</option>
           </select>
         </div>
         <br />
