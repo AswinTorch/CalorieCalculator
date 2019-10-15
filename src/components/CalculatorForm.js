@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Output from "./Output";
 
 const CalculatorForm = props => {
   const [gender, setGender] = useState("Male");
@@ -7,6 +8,7 @@ const CalculatorForm = props => {
   const [weight, setWeight] = useState(0);
   const [activityLevel, setActivityLevel] = useState(1);
   const [bmr, setBmr] = useState(0);
+  const [calories, setCalories] = useState(0);
 
   const genderHandler = e => {
     setGender(e.target.value);
@@ -17,24 +19,38 @@ const CalculatorForm = props => {
   };
 
   const heightHandler = e => {
-    setHeight(e.target.value);
+    let value = e.target.value;
+    value = convertInchesToCentimeters(value);
+    setHeight(value);
   };
 
   const weightHandler = e => {
-    setWeight(e.target.value);
+    let value = e.target.value;
+    value = convertPoundsToKilograms(value);
+    setWeight(value);
   };
 
   const activityLevelHandler = e => {
     setActivityLevel(e.target.value);
   };
 
-  const calculateButtonHandler = () => {
-    if (gender === "Male"){
-        setBmr((10 * weight) + (6.25 * height) - (5 * age) + 5);
+  const convertPoundsToKilograms = num => {
+    return num * 0.453592;
+  };
+
+  const convertInchesToCentimeters = num => {
+    return num * 2.54;
+  };
+
+  const calculateButtonHandler = e => {
+    e.preventDefault();
+    if (gender === "Male") {
+      setBmr(Math.floor(10 * weight + 6.25 * height - 5 * age + 5));
     } else {
-        setBmr((10 * weight) + (6.25 * height) - (5 * age) - 161);
+      setBmr(Math.floor(10 * weight + 6.25 * height - 5 * age - 161));
     }
-  }
+    setCalories(Math.floor(bmr * activityLevel));
+  };
 
   return (
     <div className="container card">
@@ -69,7 +85,6 @@ const CalculatorForm = props => {
               type="text"
               className="form-control"
               placeholder="Enter height in inches"
-              value={height}
               onChange={heightHandler}
             />
           </div>
@@ -79,7 +94,6 @@ const CalculatorForm = props => {
               type="text"
               className="form-control"
               placeholder="Enter weight in pounds"
-              value={weight}
               onChange={weightHandler}
             />
           </div>
@@ -93,7 +107,7 @@ const CalculatorForm = props => {
             onChange={activityLevelHandler}
           >
             <option value={1}>Basal Metabolic Rate</option>
-            <option value={2}>Little to no exercise</option>
+            <option value={1.2}>Little to no exercise</option>
             <option value={3}>Exercise 1-3 times a week</option>
             <option value={4}>Exercise 4-5 times a week</option>
             <option value={5}>
@@ -106,9 +120,13 @@ const CalculatorForm = props => {
           </select>
         </div>
         <br />
-        <button className="btn btn-primary" onClick={calculateButtonHandler}>Calculate</button>
+        <button className="btn btn-primary" onClick={calculateButtonHandler}>
+          Calculate
+        </button>
       </form>
       <br />
+      <Output bmr={bmr} calories={calories}/>
+      <br/>
     </div>
   );
 };
